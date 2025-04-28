@@ -1,0 +1,817 @@
+apiVersion: 1
+groups:
+    - orgId: 1
+      name: 10s
+      folder: Power monitor values
+      interval: 10s
+      rules:
+        - uid: beaepecy4z1tse
+          title: Over voltage
+          for: 0s
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: bejsypfy2b3eoa
+              model:
+                intervalMs: 30000
+                maxDataPoints: 43200
+                query: "from(bucket: \"plugs\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"voltage\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")"
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params: []
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - B
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                reducer: last
+                refId: B
+                type: reduce
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 253
+                            - 253
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: B
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: aea7g6givrj0gd
+          panelId: 1
+          noDataState: KeepLast
+          execErrState: KeepLast
+          annotations:
+            __dashboardUid__: aea7g6givrj0gd
+            __panelId__: "1"
+            summary: Plug {{ $labels.plug_mac }} at {{ $values.B.Value | printf "%.1f" }} Volts and maximum is 253 Volts
+          isPaused: false
+        - uid: beahzlpdye0hsb
+          title: Over current
+          for: 0s
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: bejsypfy2b3eoa
+              model:
+                intervalMs: 30000
+                maxDataPoints: 43200
+                query: "from(bucket: \"plugs\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"current\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")"
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params: []
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - B
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                reducer: last
+                refId: B
+                type: reduce
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 10
+                            - 253
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: B
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: aea7g6givrj0gd
+          panelId: 4
+          noDataState: KeepLast
+          execErrState: KeepLast
+          annotations:
+            __dashboardUid__: aea7g6givrj0gd
+            __panelId__: "4"
+            summary: Plug {{ $labels.plug_mac }} at {{ $values.B.Value | printf "%.1f" }} Amps and maximum is 13 Amps
+          isPaused: false
+        - uid: aeahzppfp3b40e
+          title: Under voltage
+          for: 0s
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: bejsypfy2b3eoa
+              model:
+                intervalMs: 30000
+                maxDataPoints: 43200
+                query: "from(bucket: \"plugs\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"voltage\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")"
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params: []
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - B
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                reducer: last
+                refId: B
+                type: reduce
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 217
+                            - 253
+                        type: lt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: B
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: aea7g6givrj0gd
+          panelId: 1
+          noDataState: KeepLast
+          execErrState: KeepLast
+          annotations:
+            __dashboardUid__: aea7g6givrj0gd
+            __panelId__: "1"
+            summary: Plug {{ $labels.plug_mac }} at {{ $values.B.Value | printf "%.1f" }} Volts and minimum is 216.2 Volts
+          isPaused: false
+        - uid: ceahzunvyy5tsa
+          title: Over temperature
+          for: 0s
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: bejsypfy2b3eoa
+              model:
+                intervalMs: 30000
+                maxDataPoints: 43200
+                query: "from(bucket: \"plugs\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")"
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params: []
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - B
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                reducer: last
+                refId: B
+                type: reduce
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 75
+                            - 253
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: B
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: aea7g6givrj0gd
+          panelId: 6
+          noDataState: KeepLast
+          execErrState: KeepLast
+          annotations:
+            __dashboardUid__: aea7g6givrj0gd
+            __panelId__: "6"
+            summary: Plug {{ $labels.plug_mac }} at {{ $values.B.Value | printf "%.1f" }}°C and maximum is 95°C
+          isPaused: false
+        - uid: aealxz5vwu4u8d
+          title: Over power
+          for: 0s
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: bejsypfy2b3eoa
+              model:
+                intervalMs: 30000
+                maxDataPoints: 43200
+                query: "from(bucket: \"plugs\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"wattage\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")"
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params: []
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - B
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                reducer: last
+                refId: B
+                type: reduce
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 2500
+                            - 253
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: B
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: aea7g6givrj0gd
+          panelId: 3
+          noDataState: KeepLast
+          execErrState: KeepLast
+          annotations:
+            __dashboardUid__: aea7g6givrj0gd
+            __panelId__: "3"
+            summary: Plug {{ $labels.plug_mac }} at {{ $values.B.Value | printf "%.0f" }} Watts and maximum is 3000 Watts
+          isPaused: false
+        - uid: cealypdrqkruof
+          title: Switched off
+          for: 0s
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: bejsypfy2b3eoa
+              model:
+                intervalMs: 30000
+                maxDataPoints: 43200
+                query: "from(bucket: \"plugs\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"switched_on\")\r\n  |> toInt()\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")"
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params: []
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - B
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                reducer: last
+                refId: B
+                type: reduce
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 1
+                            - 1
+                        type: lt
+                      operator:
+                        type: and
+                      query:
+                        params: []
+                      reducer:
+                        params: []
+                        type: avg
+                      type: query
+                datasource:
+                    name: Expression
+                    type: __expr__
+                    uid: __expr__
+                expression: B
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: aea7g6givrj0gd
+          panelId: 8
+          noDataState: KeepLast
+          execErrState: KeepLast
+          annotations:
+            __dashboardUid__: aea7g6givrj0gd
+            __panelId__: "8"
+            summary: Plug {{ $labels.plug_mac }} output is switched off
+          isPaused: false
+    - orgId: 1
+      name: 10s
+      folder: Power monitor availability
+      interval: 10s
+      rules:
+        - uid: aeass8exicveoc
+          title: Plug CC7B5C8A3098 offline
+          for: 0s
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 120
+                to: 0
+              datasourceUid: bejsypfy2b3eoa
+              model:
+                intervalMs: 1000
+                maxDataPoints: 43200
+                query: "from(bucket: \"plugs\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"plug_mac\"] == \"CC7B5C8A3098\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"switched_on\")\r\n  |> toInt()\r\n  |> yield(name: \"last\")"
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params: []
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - B
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                reducer: last
+                refId: B
+                type: reduce
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0
+                            - 1
+                        type: within_range
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: B
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          noDataState: Alerting
+          execErrState: Error
+          annotations:
+            summary: Plug CC7B5C8A3098 offline
+          isPaused: false
+        - uid: feass9g2thvr4b
+          title: Plug CC7B5C8A3614 offline
+          for: 0s
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 120
+                to: 0
+              datasourceUid: bejsypfy2b3eoa
+              model:
+                intervalMs: 1000
+                maxDataPoints: 43200
+                query: "from(bucket: \"plugs\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"plug_mac\"] == \"CC7B5C8A3614\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"switched_on\")\r\n  |> toInt()\r\n  |> yield(name: \"last\")"
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params: []
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - B
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                reducer: last
+                refId: B
+                type: reduce
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0
+                            - 1
+                        type: within_range
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: B
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          noDataState: Alerting
+          execErrState: Error
+          annotations:
+            summary: Plug CC7B5C8A3614 offline
+          isPaused: false
+        - uid: feassal260w00a
+          title: Plug CC7B5C8A5C34 offline
+          for: 0s
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 120
+                to: 0
+              datasourceUid: bejsypfy2b3eoa
+              model:
+                intervalMs: 1000
+                maxDataPoints: 43200
+                query: "from(bucket: \"plugs\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"plug_mac\"] == \"CC7B5C8A5C34\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"switched_on\")\r\n  |> toInt()\r\n  |> yield(name: \"last\")"
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params: []
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - B
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                reducer: last
+                refId: B
+                type: reduce
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0
+                            - 1
+                        type: within_range
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: B
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          noDataState: Alerting
+          execErrState: Error
+          annotations:
+            summary: Plug CC7B5C8A5C34 offline
+          isPaused: false
+        - uid: deasrwb9ow8owa
+          title: Plug CC7B5C8A61F8 offline
+          for: 0s
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 120
+                to: 0
+              datasourceUid: bejsypfy2b3eoa
+              model:
+                intervalMs: 1000
+                maxDataPoints: 43200
+                query: "from(bucket: \"plugs\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"plug_mac\"] == \"CC7B5C8A61F8\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"switched_on\")\r\n  |> toInt()\r\n  |> yield(name: \"last\")"
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params: []
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - B
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                reducer: last
+                refId: B
+                type: reduce
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0
+                            - 1
+                        type: within_range
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: B
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          noDataState: Alerting
+          execErrState: Error
+          annotations:
+            summary: Plug CC7B5C8A61F8 offline
+          isPaused: false
+        - uid: eeassbmb80f0gb
+          title: Plug CC7B5C8A6480 offline
+          for: 0s
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 120
+                to: 0
+              datasourceUid: bejsypfy2b3eoa
+              model:
+                intervalMs: 1000
+                maxDataPoints: 43200
+                query: "from(bucket: \"plugs\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"plug_mac\"] == \"CC7B5C8A6480\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"switched_on\")\r\n  |> toInt()\r\n  |> yield(name: \"last\")"
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params: []
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - B
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                reducer: last
+                refId: B
+                type: reduce
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0
+                            - 1
+                        type: within_range
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: B
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          noDataState: Alerting
+          execErrState: Error
+          annotations:
+            summary: Plug CC7B5C8A6480 offline
+          isPaused: false

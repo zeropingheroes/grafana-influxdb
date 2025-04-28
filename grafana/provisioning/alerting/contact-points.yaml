@@ -1,0 +1,13 @@
+apiVersion: 1
+contactPoints:
+    - orgId: 1
+      name: ZPH Discord
+      receivers:
+        - uid: bejsvlxg50oapf
+          type: discord
+          settings:
+            message: '{{ template "alerts.discord.message" . }}'
+            title: View alerts
+            url: ${DISCORD_WEBHOOK_URL}
+            use_discord_username: false
+          disableResolveMessage: false

@@ -1,0 +1,19 @@
+apiVersion: 1
+
+templates:
+  - orgId: 1
+    name: alerts.discord.message
+    template: |
+      {{ define "alerts.discord.message" -}}
+      {{ print "<@&1364664530109595728>:" }}
+      {{- if .Alerts.Firing -}}
+      {{- range .Alerts.Firing }}
+      🚨 **Firing:** {{ index .Annotations "summary" }}
+      {{- end -}}
+      {{- end -}}
+      {{- if .Alerts.Resolved }}
+      {{ range .Alerts.Resolved -}}
+      ✅ **Resolved:** {{ index .Annotations "summary" }}
+      {{ end }}
+      {{ end }}
+      {{ end }}

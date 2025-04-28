@@ -1,0 +1,46 @@
+services:
+    influxdb:
+        restart: always
+        image: "influxdb:2"
+        container_name: "influxdb"
+        ports:
+            - "8086:8086"
+        volumes:
+            - influxdb-data:/var/lib/influxdb2
+            - influxdb-config:/etc/influxdb2
+        env_file: .env
+    mosquitto:
+        restart: always
+        image: "eclipse-mosquitto"
+        container_name: "mosquitto"
+        ports:
+            - "1883:1883"
+        volumes:
+            - "./mosquitto/config:/mosquitto/config"
+    telegraf:
+        restart: always
+        image: "telegraf"
+        container_name: "telegraf"
+        volumes:
+            - "./telegraf/config/telegraf.conf:/etc/telegraf/telegraf.conf"
+        env_file: .env
+    grafana:
+        restart: always
+        image: "grafana/grafana"
+        container_name: "grafana"
+        ports:
+            - 3000:3000
+        volumes:
+            - grafana-data:/var/lib/grafana
+            - ./grafana/provisioning:/etc/grafana/provisioning
+            - ./grafana/dashboards:/var/lib/grafana/dashboards
+        env_file: .env
+        secrets:
+            - grafana_admin_password
+volumes:
+    influxdb-data:
+    influxdb-config:
+    grafana-data:
+secrets:
+    grafana_admin_password:
+        file: ./grafana_admin_password.secret
