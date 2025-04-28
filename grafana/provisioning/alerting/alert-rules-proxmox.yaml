@@ -81,7 +81,7 @@ groups:
                 type: threshold
           dashboardUid: IfgdXjtnk
           panelId: 14
-          noDataState: NoData
+          noDataState: OK
           execErrState: Error
           annotations:
             __dashboardUid__: IfgdXjtnk
