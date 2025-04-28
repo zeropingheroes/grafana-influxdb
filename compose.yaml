@@ -8,6 +8,7 @@ services:
         volumes:
             - influxdb-data:/var/lib/influxdb2
             - influxdb-config:/etc/influxdb2
+            - "./influxdb/init:/docker-entrypoint-initdb.d"
         env_file: .env
     mosquitto:
         restart: always
