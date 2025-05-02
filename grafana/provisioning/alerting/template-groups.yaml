@@ -5,10 +5,9 @@ templates:
     name: alerts.discord.message
     template: |
       {{ define "alerts.discord.message" -}}
-      {{ print "<@&1364664530109595728>:" }}
       {{- if .Alerts.Firing -}}
       {{- range .Alerts.Firing }}
-      🚨 **Firing:** {{ index .Annotations "summary" }}
+      ⚠️ **Firing:** {{ index .Annotations "summary" }}
       {{- end -}}
       {{- end -}}
       {{- if .Alerts.Resolved }}
