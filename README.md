@@ -43,7 +43,7 @@ After setting each setting below, select **Save Settings**:
 6. Select **Copy Webhook URL**
 7. Select **Save Changes**
 
-## Set up project
+## Set up project
 
 1. `git clone git@github.com:zeropingheroes/grafana-influxdb.git`
 2. `cd grafana-influxdb`
