@@ -1,0 +1,17 @@
+# config file version
+apiVersion: 1
+
+# List of alert rule UIDs that should be deleted
+deleteRules:
+  # <int> organization ID, default = 1
+  - orgId: 1
+    # <string, required> unique identifier for the rule
+    uid: aeass8exicveoc
+  - orgId: 1
+    uid: feass9g2thvr4b
+  - orgId: 1
+    uid: feassal260w00a
+  - orgId: 1
+    uid: deasrwb9ow8owa
+  - orgId: 1
+    uid: eeassbmb80f0gb
