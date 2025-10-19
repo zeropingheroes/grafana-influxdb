@@ -662,7 +662,7 @@
           },
           "fieldMinMax": false,
           "mappings": [],
-          "max": 100,
+          "max": 85,
           "min": 0,
           "thresholds": {
             "mode": "absolute",
@@ -673,15 +673,15 @@
               },
               {
                 "color": "dark-yellow",
-                "value": 65
+                "value": 55
               },
               {
                 "color": "dark-orange",
-                "value": 75
+                "value": 65
               },
               {
                 "color": "dark-red",
-                "value": 85
+                "value": 75
               }
             ]
           },
