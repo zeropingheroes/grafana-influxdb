@@ -276,7 +276,7 @@ groups:
                 conditions:
                     - evaluator:
                         params:
-                            - 75
+                            - 65
                             - 253
                         type: gt
                       operator:
@@ -303,7 +303,7 @@ groups:
           annotations:
             __dashboardUid__: aea7g6givrj0gd
             __panelId__: "6"
-            summary: Plug {{ $labels.plug_mac }} at {{ $values.B.Value | printf "%.1f" }}°C and maximum is 95°C
+            summary: Plug {{ $labels.plug_mac }} at {{ $values.B.Value | printf "%.1f" }}°C and maximum is 85°C
           isPaused: false
         - uid: aealxz5vwu4u8d
           title: Over power
