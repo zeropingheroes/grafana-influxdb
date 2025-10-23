@@ -6,6 +6,10 @@ Configuration for monitoring:
 
 # Setup
 
+## Update each Shelly Plug
+
+1. **Settings > Firmware > Check for updates > Install update**
+
 ## Configure each Shelly Plug
 
 After setting each setting below, select **Save Settings**:
@@ -16,7 +20,7 @@ After setting each setting below, select **Save Settings**:
 4. **Settings > Location and time > Timezones**: Etc/UTC
 5. **Settings > Location and time > SNTP server**: uk.pool.ntp.org
 6. **Settings > Access Point settings > Enable AP network**: No
-7. **Settings > Bluetooth settings > uncheck Enable Bluetooth**: No
+7. **Settings > Bluetooth settings > Enable Bluetooth**: No
 8. **Settings > Authentication > Password protected device**: Yes
 9. **Settings > Authentication > Password**: [choose password for web interface]
 10. **Settings > MQTT settings > Enable**: Yes
