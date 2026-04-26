@@ -109,7 +109,7 @@
       "targets": [
         {
           "datasource": "InfluxDB",
-          "query": "from(bucket: \"plugs\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"voltage\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")",
+          "query": "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"voltage\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")",
           "refId": "A"
         }
       ],
@@ -164,7 +164,7 @@
       "pluginVersion": "11.4.0",
       "targets": [
         {
-          "query": "from(bucket: \"plugs\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"consumed\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
+          "query": "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"consumed\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
           "refId": "A"
         }
       ],
@@ -267,7 +267,7 @@
       "targets": [
         {
           "datasource": "InfluxDB",
-          "query": "from(bucket: \"plugs\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"wattage\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")",
+          "query": "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"wattage\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")",
           "refId": "A"
         }
       ],
@@ -344,7 +344,7 @@
       "pluginVersion": "11.4.0",
       "targets": [
         {
-          "query": "from(bucket: \"plugs\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"switched_on\")\r\n  |> toInt()\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")",
+          "query": "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"switched_on\")\r\n  |> toInt()\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")",
           "refId": "A"
         }
       ],
@@ -447,7 +447,7 @@
       "targets": [
         {
           "datasource": "InfluxDB",
-          "query": "from(bucket: \"plugs\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"current\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")",
+          "query": "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"current\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")",
           "refId": "A"
         }
       ],
@@ -501,11 +501,11 @@
       "pluginVersion": "11.4.0",
       "targets": [
         {
-          "query": "from(bucket: \"plugs\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"plug_mac\"] == \"CC7B5C8A3098\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")",
+          "query": "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"plug_id\"] == \"1\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")",
           "refId": "A"
         }
       ],
-      "title": "Plug CC7B5C8A3098",
+      "title": "Plug 1",
       "type": "stat"
     },
     {
@@ -555,11 +555,11 @@
       "pluginVersion": "11.4.0",
       "targets": [
         {
-          "query": "from(bucket: \"plugs\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"plug_mac\"] == \"CC7B5C8A3614\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")",
+          "query": "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"plug_id\"] == \"2\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")",
           "refId": "A"
         }
       ],
-      "title": "Plug CC7B5C8A3614",
+      "title": "Plug 2",
       "type": "stat"
     },
     {
@@ -609,11 +609,11 @@
       "pluginVersion": "11.4.0",
       "targets": [
         {
-          "query": "from(bucket: \"plugs\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"plug_mac\"] == \"CC7B5C8A5C34\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")",
+          "query": "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"plug_id\"] == \"3\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")",
           "refId": "A"
         }
       ],
-      "title": "Plug CC7B5C8A5C34",
+      "title": "Plug 3",
       "type": "stat"
     },
     {
@@ -712,7 +712,7 @@
       "targets": [
         {
           "datasource": "InfluxDB",
-          "query": "from(bucket: \"plugs\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")",
+          "query": "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")",
           "refId": "A"
         }
       ],
@@ -766,11 +766,11 @@
       "pluginVersion": "11.4.0",
       "targets": [
         {
-          "query": "from(bucket: \"plugs\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"plug_mac\"] == \"CC7B5C8A61F8\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")",
+          "query": "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"plug_id\"] == \"4\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")",
           "refId": "A"
         }
       ],
-      "title": "Plug CC7B5C8A61F8",
+      "title": "Plug 4",
       "type": "stat"
     },
     {
@@ -819,11 +819,11 @@
       "pluginVersion": "11.4.0",
       "targets": [
         {
-          "query": "from(bucket: \"plugs\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"plug_mac\"] == \"CC7B5C8A6480\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")",
+          "query": "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"plug_id\"] == \"5\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")",
           "refId": "A"
         }
       ],
-      "title": "Plug CC7B5C8A6480",
+      "title": "Plug 5",
       "type": "stat"
     }
   ],
@@ -840,7 +840,7 @@
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "Plugs",
+  "title": "Power",
   "uid": "aea7g6givrj0gd",
   "version": 1,
   "weekStart": ""
