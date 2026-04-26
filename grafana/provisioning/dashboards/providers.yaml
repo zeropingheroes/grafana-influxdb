@@ -1,13 +1,23 @@
 apiVersion: 1
 
 providers:
-  - name: 'Default'
+  - name: 'Power Dashboards'
     orgId: 1
-    folder: ''
+    folder: 'Power'
     type: file
     disableDeletion: false
     updateIntervalSeconds: 0
     allowUiUpdates: true
     options:
-      path: /var/lib/grafana/dashboards
+      path: /var/lib/grafana/dashboards/power
+      foldersFromFilesStructure: false
+  - name: 'Proxmox Dashboards'
+    orgId: 1
+    folder: 'Proxmox'
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 0
+    allowUiUpdates: true
+    options:
+      path: /var/lib/grafana/dashboards/proxmox
       foldersFromFilesStructure: false
