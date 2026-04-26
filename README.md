@@ -37,6 +37,30 @@ After setting each setting below, select **Save Settings**:
 21. **Switches > Reset counters**
 22. **Reboot**
 
+## Configure each Shelly Pro 3EM
+
+After setting each setting below, select **Save Settings**:
+
+1. **Settings > Device name**: Set to distro[ID] (for example, distro1)
+2. **Settings > Location and time > Timezones**: Etc/UTC
+3. **Settings > Location and time > SNTP server**: uk.pool.ntp.org
+4. **Settings > Access Point settings > Enable AP network**: No
+5. **Settings > Bluetooth settings > Enable Bluetooth**: No
+6. **Settings > Authentication > Password protected device**: Yes
+7. **Settings > Authentication > Password**: [choose password for web interface]
+8. **Settings > MQTT settings > Enable**: Yes
+9. **Settings > MQTT settings > Connection Type**: No TLS
+10. **Settings > MQTT settings > MQTT Prefix**: distro/[ID]
+11. **Settings > MQTT settings > Enable MQTT Control:**: No
+12. **Settings > MQTT settings > Enable RPC over MQTT**: No
+13. **Settings > MQTT settings > RPC status notifications over MQTT**: Yes
+14. **Settings > MQTT settings > Generic status update over MQTT**: Yes
+15. **Settings > MQTT settings > Server**: [your-server.example.com:1883]
+16. **Settings > MQTT settings > Client ID**: distro[ID]
+17. **Settings > MQTT settings > Username**: power
+18. **Settings > MQTT settings > Password**: [choose password for mosquitto]
+19. **Reboot**
+
 ## Create Discord channel webhook
 
 1. Select **Edit channel**
