@@ -1,0 +1,397 @@
+apiVersion: 1
+groups:
+    - orgId: 1
+      name: 10s
+      folder: Power
+      interval: 10s
+      rules:
+        - uid: afl2ikzojv5dsa
+          title: Distribution board over current
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: bejsypfy2b3eoa
+              model:
+                datasource:
+                    type: influxdb
+                    uid: bejsypfy2b3eoa
+                instant: false
+                intervalMs: 1000
+                maxDataPoints: 43200
+                query: "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"distros\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"amps\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")"
+                range: true
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params: []
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params: []
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                reducer: last
+                refId: B
+                type: reduce
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 60
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params: []
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: B
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: bea7g6givrj0gd
+          panelId: 4
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: bea7g6givrj0gd
+            __panelId__: "4"
+            summary: Distribution board {{ $labels.phase }} at {{ $values.B.Value | printf "%.1f" }} Amps and maximum is 80 Amps
+          isPaused: false
+          notification_settings:
+            receiver: ZPH Discord
+        - uid: cfl2itjo65reof
+          title: Distribution board over wattage
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: bejsypfy2b3eoa
+              model:
+                datasource:
+                    type: influxdb
+                    uid: bejsypfy2b3eoa
+                instant: false
+                intervalMs: 1000
+                maxDataPoints: 43200
+                query: "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"distros\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"watts\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")"
+                range: true
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params: []
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params: []
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                reducer: last
+                refId: B
+                type: reduce
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 13800
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params: []
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: B
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: bea7g6givrj0gd
+          panelId: 3
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: bea7g6givrj0gd
+            __panelId__: "3"
+            summary: Distribution board {{ $labels.phase }} at {{ $values.B.Value | printf "%.0f" }} Watts and maximum is 18400 Watts
+          isPaused: false
+          notification_settings:
+            receiver: ZPH Discord
+        - uid: afl2j08lalp1cc
+          title: Distribution board over voltage
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: bejsypfy2b3eoa
+              model:
+                datasource:
+                    type: influxdb
+                    uid: bejsypfy2b3eoa
+                instant: false
+                intervalMs: 1000
+                maxDataPoints: 43200
+                query: "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"distros\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"volts\")\r\n  |> filter(fn: (r) => r[\"phase\"] == \"A\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")"
+                range: true
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params: []
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params: []
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                reducer: last
+                refId: B
+                type: reduce
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 253
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params: []
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: B
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: bea7g6givrj0gd
+          panelId: 1
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: bea7g6givrj0gd
+            __panelId__: "1"
+            summary: Distribution board at {{ $values.B.Value | printf "%.1f" }} Volts and maximum is 253 Volts
+          isPaused: false
+          notification_settings:
+            receiver: ZPH Discord
+        - uid: efl2jab8ywao0a
+          title: Distribution board under frequency
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: bejsypfy2b3eoa
+              model:
+                datasource:
+                    type: influxdb
+                    uid: bejsypfy2b3eoa
+                instant: false
+                intervalMs: 1000
+                maxDataPoints: 43200
+                query: "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"distros\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"frequency\")\r\n  |> filter(fn: (r) => r[\"phase\"] == \"A\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")"
+                range: true
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params: []
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params: []
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                reducer: last
+                refId: B
+                type: reduce
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 49.5
+                        type: lt
+                      operator:
+                        type: and
+                      query:
+                        params: []
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: B
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: bea7g6givrj0gd
+          panelId: 11
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: bea7g6givrj0gd
+            __panelId__: "11"
+            summary: Distribution board at {{ $values.B.Value | printf "%.0f" }} Hertz and minimum is 49 Hertz
+          isPaused: false
+          notification_settings:
+            receiver: ZPH Discord
+        - uid: ffl2jbydgvhtsc
+          title: Distribution board over frequency
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: bejsypfy2b3eoa
+              model:
+                datasource:
+                    type: influxdb
+                    uid: bejsypfy2b3eoa
+                instant: false
+                intervalMs: 1000
+                maxDataPoints: 43200
+                query: "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"distros\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"frequency\")\r\n  |> filter(fn: (r) => r[\"phase\"] == \"A\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")"
+                range: true
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params: []
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params: []
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                reducer: last
+                refId: B
+                type: reduce
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 50.5
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params: []
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: B
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: bea7g6givrj0gd
+          panelId: 11
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: bea7g6givrj0gd
+            __panelId__: "11"
+            summary: Distribution board at {{ $values.B.Value | printf "%.0f" }} Hertz and maximum is 51 Hertz
+          isPaused: false
+          notification_settings:
+            receiver: ZPH Discord
