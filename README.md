@@ -1,41 +1,10 @@
 # Grafana & InfluxDB
 
 Configuration for monitoring:
-* [Shelly PlusPlug UK](https://www.shelly.com/products/shelly-plus-plug-uk)
+* [Shelly Pro 3EM](https://www.shelly.com/products/shelly-pro-3em-v2)
 * Proxmox
 
 # Setup
-
-## Update each Shelly PlusPlug
-
-1. **Settings > Firmware > Check for updates > Install update**
-
-## Configure each Shelly PlusPlug
-
-After setting each setting below, select **Save Settings**:
-
-1. **Home > Switches > Settings > Input/Output settings**: Turn ON
-2. **Home > Switches > Settings > Detach switch**: Detached
-3. **Settings > Device name**: Set to plug[ID] (for example, plug1)
-4. **Settings > Location and time > Timezones**: Etc/UTC
-5. **Settings > Location and time > SNTP server**: uk.pool.ntp.org
-6. **Settings > Access Point settings > Enable AP network**: No
-7. **Settings > Bluetooth settings > Enable Bluetooth**: No
-8. **Settings > Authentication > Password protected device**: Yes
-9. **Settings > Authentication > Password**: [choose password for web interface]
-10. **Settings > MQTT settings > Enable**: Yes
-11. **Settings > MQTT settings > Connection Type**: No TLS
-12. **Settings > MQTT settings > MQTT Prefix**: plug/[ID]
-13. **Settings > MQTT settings > Enable MQTT Control:**: No
-14. **Settings > MQTT settings > Enable RPC over MQTT**: No
-15. **Settings > MQTT settings > RPC status notifications over MQTT**: Yes
-16. **Settings > MQTT settings > Generic status update over MQTT**: Yes
-17. **Settings > MQTT settings > Server**: [your-server.example.com:1883]
-18. **Settings > MQTT settings > Client ID**: plug[ID]
-19. **Settings > MQTT settings > Username**: power
-20. **Settings > MQTT settings > Password**: [choose password for mosquitto]
-21. **Switches > Reset counters**
-22. **Reboot**
 
 ## Configure each Shelly Pro 3EM
 
