@@ -74,8 +74,8 @@ groups:
                 type: threshold
           dashboardUid: bea7g6givrj0gd
           panelId: 4
-          noDataState: NoData
-          execErrState: Error
+          noDataState: KeepLast
+          execErrState: KeepLast
           annotations:
             __dashboardUid__: bea7g6givrj0gd
             __panelId__: "4"
@@ -152,8 +152,8 @@ groups:
                 type: threshold
           dashboardUid: bea7g6givrj0gd
           panelId: 3
-          noDataState: NoData
-          execErrState: Error
+          noDataState: KeepLast
+          execErrState: KeepLast
           annotations:
             __dashboardUid__: bea7g6givrj0gd
             __panelId__: "3"
@@ -230,8 +230,8 @@ groups:
                 type: threshold
           dashboardUid: bea7g6givrj0gd
           panelId: 1
-          noDataState: NoData
-          execErrState: Error
+          noDataState: KeepLast
+          execErrState: KeepLast
           annotations:
             __dashboardUid__: bea7g6givrj0gd
             __panelId__: "1"
@@ -308,8 +308,8 @@ groups:
                 type: threshold
           dashboardUid: bea7g6givrj0gd
           panelId: 11
-          noDataState: NoData
-          execErrState: Error
+          noDataState: KeepLast
+          execErrState: KeepLast
           annotations:
             __dashboardUid__: bea7g6givrj0gd
             __panelId__: "11"
@@ -386,8 +386,8 @@ groups:
                 type: threshold
           dashboardUid: bea7g6givrj0gd
           panelId: 11
-          noDataState: NoData
-          execErrState: Error
+          noDataState: KeepLast
+          execErrState: KeepLast
           annotations:
             __dashboardUid__: bea7g6givrj0gd
             __panelId__: "11"
