@@ -598,7 +598,7 @@
               }
             ]
           },
-          "unit": "watth"
+          "unit": "kwatth"
         },
         "overrides": []
       },
