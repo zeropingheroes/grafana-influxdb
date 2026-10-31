@@ -313,7 +313,7 @@ groups:
           annotations:
             __dashboardUid__: bea7g6givrj0gd
             __panelId__: "11"
-            summary: Distribution board at {{ $values.B.Value | printf "%.0f" }} Hertz and minimum is 49 Hertz
+            summary: Distribution board at {{ $values.B.Value | printf "%.1f" }} Hertz and minimum is 49 Hertz
           isPaused: false
           notification_settings:
             receiver: ZPH Discord
@@ -391,7 +391,88 @@ groups:
           annotations:
             __dashboardUid__: bea7g6givrj0gd
             __panelId__: "11"
-            summary: Distribution board at {{ $values.B.Value | printf "%.0f" }} Hertz and maximum is 51 Hertz
+            summary: Distribution board at {{ $values.B.Value | printf "%.1f" }} Hertz and maximum is 51 Hertz
+          isPaused: false
+          notification_settings:
+            receiver: ZPH Discord
+        - uid: distro-not-reporting
+          title: Distribution board not reporting
+          for: 0s
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 86400
+                to: 0
+              datasourceUid: bejsypfy2b3eoa
+              model:
+                datasource:
+                    type: influxdb
+                    uid: bejsypfy2b3eoa
+                intervalMs: 1000
+                maxDataPoints: 43200
+                query: |
+                  from(bucket: "power")
+                    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+                    |> filter(fn: (r) => r["_measurement"] == "distros")
+                    |> filter(fn: (r) => r["_field"] == "volts")
+                    |> filter(fn: (r) => r["phase"] == "A")
+                    |> last()
+                    |> map(fn: (r) => ({r with _value: float(v: int(v: now()) - int(v: r._time)) / 60000000000.0}))
+                    |> keep(columns: ["_time", "_value", "phase"])
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params: []
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params: []
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                reducer: last
+                refId: B
+                type: reduce
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 5
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params: []
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: B
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          noDataState: Alerting
+          execErrState: KeepLast
+          annotations:
+            summary: '{{ if $labels.phase }}Distribution board has not reported for {{ $values.B.Value | printf "%.0f" }} minutes{{ else }}No distribution board readings in the last 24 hours{{ end }}'
           isPaused: false
           notification_settings:
             receiver: ZPH Discord
