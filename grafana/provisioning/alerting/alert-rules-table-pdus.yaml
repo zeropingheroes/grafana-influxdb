@@ -6,7 +6,7 @@ groups:
       interval: 10s
       rules:
         - uid: beaepecy4z1tse
-          title: Plug over voltage
+          title: Device over-voltage
           for: 0s
           condition: C
           data:
@@ -18,7 +18,7 @@ groups:
               model:
                 intervalMs: 30000
                 maxDataPoints: 43200
-                query: "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"voltage\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")"
+                query: "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"table-pdus\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"volts\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")"
                 refId: A
             - refId: B
               datasourceUid: __expr__
@@ -52,7 +52,6 @@ groups:
                     - evaluator:
                         params:
                             - 253
-                            - 253
                         type: gt
                       operator:
                         type: and
@@ -71,17 +70,17 @@ groups:
                 maxDataPoints: 43200
                 refId: C
                 type: threshold
-          dashboardUid: aea7g6givrj0gd
+          dashboardUid: ilcmqz6
           panelId: 1
           noDataState: KeepLast
           execErrState: KeepLast
           annotations:
-            __dashboardUid__: aea7g6givrj0gd
+            __dashboardUid__: ilcmqz6
             __panelId__: "1"
-            summary: Plug {{ $labels.plug_id }} at {{ $values.B.Value | printf "%.1f" }} Volts and maximum is 253 Volts
+            summary: '{{ $labels.device }} at {{ $values.B.Value | printf "%.1f" }} Volts and maximum is 253 Volts'
           isPaused: false
         - uid: beahzlpdye0hsb
-          title: Plug over current
+          title: Device over-current
           for: 0s
           condition: C
           data:
@@ -93,7 +92,7 @@ groups:
               model:
                 intervalMs: 30000
                 maxDataPoints: 43200
-                query: "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"current\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")"
+                query: "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"table-pdus\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"amps\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")"
                 refId: A
             - refId: B
               datasourceUid: __expr__
@@ -126,8 +125,7 @@ groups:
                 conditions:
                     - evaluator:
                         params:
-                            - 10
-                            - 253
+                            - 14
                         type: gt
                       operator:
                         type: and
@@ -146,17 +144,17 @@ groups:
                 maxDataPoints: 43200
                 refId: C
                 type: threshold
-          dashboardUid: aea7g6givrj0gd
+          dashboardUid: ilcmqz6
           panelId: 4
           noDataState: KeepLast
           execErrState: KeepLast
           annotations:
-            __dashboardUid__: aea7g6givrj0gd
+            __dashboardUid__: ilcmqz6
             __panelId__: "4"
-            summary: Plug {{ $labels.plug_id }} at {{ $values.B.Value | printf "%.1f" }} Amps and maximum is 13 Amps
+            summary: '{{ $labels.device }} at {{ $values.B.Value | printf "%.1f" }} Amps and maximum is 16 Amps'
           isPaused: false
         - uid: aeahzppfp3b40e
-          title: Plug under voltage
+          title: Device under-voltage
           for: 0s
           condition: C
           data:
@@ -168,7 +166,7 @@ groups:
               model:
                 intervalMs: 30000
                 maxDataPoints: 43200
-                query: "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"voltage\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")"
+                query: "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"table-pdus\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"volts\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")"
                 refId: A
             - refId: B
               datasourceUid: __expr__
@@ -202,7 +200,6 @@ groups:
                     - evaluator:
                         params:
                             - 217
-                            - 253
                         type: lt
                       operator:
                         type: and
@@ -221,17 +218,17 @@ groups:
                 maxDataPoints: 43200
                 refId: C
                 type: threshold
-          dashboardUid: aea7g6givrj0gd
+          dashboardUid: ilcmqz6
           panelId: 1
           noDataState: KeepLast
           execErrState: KeepLast
           annotations:
-            __dashboardUid__: aea7g6givrj0gd
+            __dashboardUid__: ilcmqz6
             __panelId__: "1"
-            summary: Plug {{ $labels.plug_id }} at {{ $values.B.Value | printf "%.1f" }} Volts and minimum is 216.2 Volts
+            summary: '{{ $labels.device }} at {{ $values.B.Value | printf "%.1f" }} Volts and minimum is 216.2 Volts'
           isPaused: false
         - uid: ceahzunvyy5tsa
-          title: Plug over temperature
+          title: Device over-temperature
           for: 0s
           condition: C
           data:
@@ -243,7 +240,7 @@ groups:
               model:
                 intervalMs: 30000
                 maxDataPoints: 43200
-                query: "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")"
+                query: "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"table-pdus\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")"
                 refId: A
             - refId: B
               datasourceUid: __expr__
@@ -276,8 +273,7 @@ groups:
                 conditions:
                     - evaluator:
                         params:
-                            - 65
-                            - 253
+                            - 50
                         type: gt
                       operator:
                         type: and
@@ -296,17 +292,17 @@ groups:
                 maxDataPoints: 43200
                 refId: C
                 type: threshold
-          dashboardUid: aea7g6givrj0gd
-          panelId: 6
+          dashboardUid: ilcmqz6
+          panelId: 15
           noDataState: KeepLast
           execErrState: KeepLast
           annotations:
-            __dashboardUid__: aea7g6givrj0gd
-            __panelId__: "6"
-            summary: Plug {{ $labels.plug_id }} at {{ $values.B.Value | printf "%.1f" }}°C and maximum is 85°C
+            __dashboardUid__: ilcmqz6
+            __panelId__: "15"
+            summary: '{{ $labels.device }} at {{ $values.B.Value | printf "%.1f" }}°C and maximum is 65°C'
           isPaused: false
         - uid: aealxz5vwu4u8d
-          title: Plug over wattage
+          title: Device over-wattage
           for: 0s
           condition: C
           data:
@@ -318,7 +314,7 @@ groups:
               model:
                 intervalMs: 30000
                 maxDataPoints: 43200
-                query: "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"wattage\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")"
+                query: "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"table-pdus\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"watts\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")"
                 refId: A
             - refId: B
               datasourceUid: __expr__
@@ -351,8 +347,7 @@ groups:
                 conditions:
                     - evaluator:
                         params:
-                            - 2500
-                            - 253
+                            - 3000
                         type: gt
                       operator:
                         type: and
@@ -371,87 +366,12 @@ groups:
                 maxDataPoints: 43200
                 refId: C
                 type: threshold
-          dashboardUid: aea7g6givrj0gd
+          dashboardUid: ilcmqz6
           panelId: 3
           noDataState: KeepLast
           execErrState: KeepLast
           annotations:
-            __dashboardUid__: aea7g6givrj0gd
+            __dashboardUid__: ilcmqz6
             __panelId__: "3"
-            summary: Plug {{ $labels.plug_id }} at {{ $values.B.Value | printf "%.0f" }} Watts and maximum is 3000 Watts
-          isPaused: false
-        - uid: cealypdrqkruof
-          title: Plug switched off
-          for: 0s
-          condition: C
-          data:
-            - refId: A
-              relativeTimeRange:
-                from: 300
-                to: 0
-              datasourceUid: bejsypfy2b3eoa
-              model:
-                intervalMs: 30000
-                maxDataPoints: 43200
-                query: "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"plugs\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"switched_on\")\r\n  |> toInt()\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")"
-                refId: A
-            - refId: B
-              datasourceUid: __expr__
-              model:
-                conditions:
-                    - evaluator:
-                        params: []
-                        type: gt
-                      operator:
-                        type: and
-                      query:
-                        params:
-                            - B
-                      reducer:
-                        params: []
-                        type: last
-                      type: query
-                datasource:
-                    type: __expr__
-                    uid: __expr__
-                expression: A
-                intervalMs: 1000
-                maxDataPoints: 43200
-                reducer: last
-                refId: B
-                type: reduce
-            - refId: C
-              datasourceUid: __expr__
-              model:
-                conditions:
-                    - evaluator:
-                        params:
-                            - 1
-                            - 1
-                        type: lt
-                      operator:
-                        type: and
-                      query:
-                        params: []
-                      reducer:
-                        params: []
-                        type: avg
-                      type: query
-                datasource:
-                    name: Expression
-                    type: __expr__
-                    uid: __expr__
-                expression: B
-                intervalMs: 1000
-                maxDataPoints: 43200
-                refId: C
-                type: threshold
-          dashboardUid: aea7g6givrj0gd
-          panelId: 8
-          noDataState: KeepLast
-          execErrState: KeepLast
-          annotations:
-            __dashboardUid__: aea7g6givrj0gd
-            __panelId__: "8"
-            summary: Plug {{ $labels.plug_id }} output is switched off
+            summary: '{{ $labels.device }} at {{ $values.B.Value | printf "%.0f" }} Watts and maximum is 3840 Watts'
           isPaused: false
