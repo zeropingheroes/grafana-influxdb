@@ -413,7 +413,7 @@
             "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
-            "axisLabel": "Volts",
+            "axisLabel": "Hertz",
             "axisPlacement": "auto",
             "barAlignment": 0,
             "barWidthFactor": 0.6,
@@ -783,7 +783,7 @@
               "mode": "area"
             }
           },
-          "displayName": "Power Factor",
+          "displayName": "",
           "fieldMinMax": false,
           "mappings": [],
           "max": 1,
@@ -806,7 +806,44 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/phase=\"A\"/"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "A - Main Distribution Board"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/phase=\"B\"/"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "B - Stage Distribution Board"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/phase=\"C\"/"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "C - Bar Distribution Board"
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 9,
@@ -832,7 +869,7 @@
       "targets": [
         {
           "datasource": "InfluxDB",
-          "query": "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"distros\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"power_factor\")\r\n  |> filter(fn: (r) => r[\"phase\"] == \"A\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")",
+          "query": "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"distros\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"power_factor\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")",
           "refId": "A"
         }
       ],
@@ -858,3 +895,4 @@
   "version": 3,
   "weekStart": ""
 }
+
