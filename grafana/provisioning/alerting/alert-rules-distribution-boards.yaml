@@ -7,6 +7,7 @@ groups:
       rules:
         - uid: afl2ikzojv5dsa
           title: Distribution board over current
+          for: 3m
           condition: C
           data:
             - refId: A
@@ -85,6 +86,7 @@ groups:
             receiver: ZPH Discord
         - uid: afl2j08lalp1cc
           title: Distribution board over voltage
+          for: 3m
           condition: C
           data:
             - refId: A
