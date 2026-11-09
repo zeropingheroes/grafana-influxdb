@@ -49,7 +49,7 @@
             "lineStyle": {
               "fill": "solid"
             },
-            "lineWidth": 5,
+            "lineWidth": 1,
             "pointSize": 1,
             "scaleDistribution": {
               "type": "linear"
@@ -67,7 +67,6 @@
           },
           "fieldMinMax": false,
           "mappings": [],
-          "max": 100,
           "min": 0,
           "thresholds": {
             "mode": "absolute",
@@ -167,6 +166,102 @@
       "fieldConfig": {
         "defaults": {
           "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "Volts",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "area"
+            }
+          },
+          "displayName": "Volts",
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-red",
+                "value": 0
+              },
+              {
+                "color": "dark-green",
+                "value": 216.3
+              },
+              {
+                "color": "dark-red",
+                "value": 253
+              }
+            ]
+          },
+          "unit": "volt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.2",
+      "targets": [
+        {
+          "datasource": "InfluxDB",
+          "query": "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"distros\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"volts\")\r\n  |> filter(fn: (r) => r[\"phase\"] == \"A\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")",
+          "refId": "A"
+        }
+      ],
+      "title": "Volts",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "InfluxDB",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
             "mode": "palette-classic",
             "seriesBy": "last"
           },
@@ -191,7 +286,7 @@
             "lineStyle": {
               "fill": "solid"
             },
-            "lineWidth": 5,
+            "lineWidth": 1,
             "pointSize": 1,
             "scaleDistribution": {
               "type": "linear"
@@ -209,7 +304,6 @@
           },
           "fieldMinMax": false,
           "mappings": [],
-          "max": 23000,
           "min": 0,
           "thresholds": {
             "mode": "absolute",
@@ -276,8 +370,8 @@
       "gridPos": {
         "h": 9,
         "w": 12,
-        "x": 12,
-        "y": 0
+        "x": 0,
+        "y": 9
       },
       "id": 3,
       "options": {
@@ -315,7 +409,7 @@
             "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
-            "axisLabel": "Volts",
+            "axisLabel": "Power Factor",
             "axisPlacement": "auto",
             "barAlignment": 0,
             "barWidthFactor": 0.6,
@@ -329,7 +423,7 @@
             },
             "insertNulls": false,
             "lineInterpolation": "smooth",
-            "lineWidth": 5,
+            "lineWidth": 1,
             "pointSize": 1,
             "scaleDistribution": {
               "type": "linear"
@@ -345,109 +439,10 @@
               "mode": "area"
             }
           },
-          "displayName": "Volts",
+          "displayName": "",
           "fieldMinMax": false,
           "mappings": [],
-          "max": 255,
-          "min": 215,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "dark-red",
-                "value": 0
-              },
-              {
-                "color": "dark-green",
-                "value": 216.3
-              },
-              {
-                "color": "dark-red",
-                "value": 253
-              }
-            ]
-          },
-          "unit": "volt"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 0,
-        "y": 9
-      },
-      "id": 1,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.4.2",
-      "targets": [
-        {
-          "datasource": "InfluxDB",
-          "query": "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"distros\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"volts\")\r\n  |> filter(fn: (r) => r[\"phase\"] == \"A\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")",
-          "refId": "A"
-        }
-      ],
-      "title": "Volts",
-      "type": "timeseries"
-    },
-    {
-      "datasource": "InfluxDB",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "Hertz",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "smooth",
-            "lineWidth": 5,
-            "pointSize": 1,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "showValues": false,
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "area"
-            }
-          },
-          "displayName": "Frequency",
-          "fieldMinMax": false,
-          "mappings": [],
-          "max": 51.5,
-          "min": 48.5,
+          "max": 1,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -457,25 +452,53 @@
               },
               {
                 "color": "dark-yellow",
-                "value": 49
+                "value": 0.5
               },
               {
                 "color": "dark-green",
-                "value": 49.8
-              },
+                "value": 0.8
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/phase=\"A\"/"
+            },
+            "properties": [
               {
-                "color": "dark-yellow",
-                "value": 50.2
-              },
-              {
-                "color": "dark-red",
-                "value": 51
+                "id": "displayName",
+                "value": "A - Main Distribution Board"
               }
             ]
           },
-          "unit": "rothz"
-        },
-        "overrides": []
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/phase=\"B\"/"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "B - Stage Distribution Board"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/phase=\"C\"/"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "C - Bar Distribution Board"
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 9,
@@ -483,7 +506,7 @@
         "x": 12,
         "y": 9
       },
-      "id": 11,
+      "id": 13,
       "options": {
         "legend": {
           "calcs": [],
@@ -501,11 +524,11 @@
       "targets": [
         {
           "datasource": "InfluxDB",
-          "query": "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"distros\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"frequency\")\r\n  |> filter(fn: (r) => r[\"phase\"] == \"A\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")",
+          "query": "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"distros\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"power_factor\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")",
           "refId": "A"
         }
       ],
-      "title": "Frequency",
+      "title": "Power Factor",
       "type": "timeseries"
     },
     {
@@ -567,7 +590,7 @@
         ]
       },
       "gridPos": {
-        "h": 8,
+        "h": 3,
         "w": 24,
         "x": 0,
         "y": 18
@@ -605,6 +628,112 @@
       "fieldConfig": {
         "defaults": {
           "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "Hertz",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "area"
+            }
+          },
+          "displayName": "Frequency",
+          "fieldMinMax": false,
+          "mappings": [],
+          "max": 50.25,
+          "min": 49.75,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-red",
+                "value": 0
+              },
+              {
+                "color": "dark-yellow",
+                "value": 49
+              },
+              {
+                "color": "dark-green",
+                "value": 49.8
+              },
+              {
+                "color": "dark-yellow",
+                "value": 50.2
+              },
+              {
+                "color": "dark-red",
+                "value": 51
+              }
+            ]
+          },
+          "unit": "rothz"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 21
+      },
+      "id": 11,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.2",
+      "targets": [
+        {
+          "datasource": "InfluxDB",
+          "query": "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"distros\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"frequency\")\r\n  |> filter(fn: (r) => r[\"phase\"] == \"A\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")",
+          "refId": "A"
+        }
+      ],
+      "title": "Frequency",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "InfluxDB",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
             "mode": "palette-classic",
             "seriesBy": "last"
           },
@@ -629,7 +758,7 @@
             "lineStyle": {
               "fill": "solid"
             },
-            "lineWidth": 5,
+            "lineWidth": 1,
             "pointSize": 1,
             "scaleDistribution": {
               "type": "linear"
@@ -647,7 +776,6 @@
           },
           "fieldMinMax": false,
           "mappings": [],
-          "max": 23000,
           "min": 0,
           "thresholds": {
             "mode": "absolute",
@@ -714,8 +842,8 @@
       "gridPos": {
         "h": 9,
         "w": 12,
-        "x": 0,
-        "y": 26
+        "x": 12,
+        "y": 21
       },
       "id": 14,
       "options": {
@@ -741,140 +869,6 @@
       ],
       "title": "Volt-Amps",
       "type": "timeseries"
-    },
-    {
-      "datasource": "InfluxDB",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "Power Factor",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "smooth",
-            "lineWidth": 5,
-            "pointSize": 1,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "showValues": false,
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "area"
-            }
-          },
-          "displayName": "",
-          "fieldMinMax": false,
-          "mappings": [],
-          "max": 1,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "dark-red",
-                "value": 0
-              },
-              {
-                "color": "dark-yellow",
-                "value": 0.5
-              },
-              {
-                "color": "dark-green",
-                "value": 0.8
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byRegexp",
-              "options": "/phase=\"A\"/"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "A - Main Distribution Board"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byRegexp",
-              "options": "/phase=\"B\"/"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "B - Stage Distribution Board"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byRegexp",
-              "options": "/phase=\"C\"/"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "C - Bar Distribution Board"
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 12,
-        "y": 26
-      },
-      "id": 13,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.4.2",
-      "targets": [
-        {
-          "datasource": "InfluxDB",
-          "query": "from(bucket: \"power\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"distros\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"power_factor\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")",
-          "refId": "A"
-        }
-      ],
-      "title": "Power Factor",
-      "type": "timeseries"
     }
   ],
   "preload": false,
@@ -892,7 +886,6 @@
   "timezone": "browser",
   "title": "Distribution Boards",
   "uid": "bea7g6givrj0gd",
-  "version": 3,
+  "version": 13,
   "weekStart": ""
 }
-
